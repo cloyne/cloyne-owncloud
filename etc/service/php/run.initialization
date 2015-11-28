@@ -1,0 +1,12 @@
+# If directory is empty, we restore it from our copy of initial files.
+[[ $(ls -A /var/www/owncloud/config | grep -v placeholder) ]] || cp -a /etc/service/php/config/* /var/www/owncloud/config/
+
+chmod g+rwx /var/www/owncloud/config
+chown :fcgi-php /var/www/owncloud/config
+chmod 640 /var/www/owncloud/config/config.php
+chown fcgi-php:fcgi-php /var/www/owncloud/config/config.php
+
+find /owncloud-data -type f -print0 | xargs -n 1000 -0 --no-run-if-empty chmod 0640
+find /owncloud-data -type d -print0 | xargs -n 1000 -0 --no-run-if-empty chmod 0750
+
+chown -Rh fcgi-php:fcgi-php /owncloud-data

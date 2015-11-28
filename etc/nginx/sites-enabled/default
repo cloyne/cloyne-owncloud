@@ -1,0 +1,69 @@
+server {
+    listen 80 default_server;
+    server_name _;
+
+    root /var/www/owncloud;
+
+    # Disable gzip to avoid the removal of the ETag header
+    gzip off;
+
+    error_page 403 /core/templates/403.php;
+    error_page 404 /core/templates/404.php;
+
+    location ~ ^/(?:\.htaccess|data|config|db_structure\.xml|README) {
+        return 403;
+    }
+
+    location /apps/user_ldap/tests {
+        return 403;
+    }
+
+    location ~ /\. {
+        return 403;
+    }
+
+    location ~ ^/(?:build|tests|config|lib|3rdparty|templates)/ {
+        return 403;
+    }
+
+    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+        return 403;
+    }
+
+    location / {
+        rewrite ^/\.well-known/host-meta /public.php?service=host-meta last;
+        rewrite ^/\.well-known/host-meta\.json /public.php?service=host-meta-json last;
+        rewrite ^/apps/calendar/caldav\.php /remote.php/caldav/ last;
+        rewrite ^/apps/contacts/carddav\.php /remote.php/carddav/ last;
+        rewrite ^/remote/ /remote.php last;
+
+        rewrite ^/\.well-known/carddav /remote.php/carddav/ redirect;
+        rewrite ^/\.well-known/caldav /remote.php/caldav/ redirect;
+        rewrite ^/caldav(.*)$ /remote.php/caldav$1 redirect;
+        rewrite ^/carddav(.*)$ /remote.php/carddav$1 redirect;
+        rewrite ^/webdav(.*)$ /remote.php/webdav$1 redirect;
+
+        rewrite ^(/core/doc/[^\/]+/)$ $1/index.html;
+
+        # Add security and privacy related headers
+        add_header X-Content-Type-Options "nosniff";
+        add_header X-XSS-Protection "1; mode=block";
+        add_header X-Robots-Tag "none";
+        add_header X-Frame-Options "SAMEORIGIN";
+
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /index.php;
+    }
+
+    location ~ \.php(?:$|/) {
+        fastcgi_intercept_errors on;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        include fastcgi_php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    location ~ \.(?:css|js)$ {
+        add_header Cache-Control "max-age=7200, public";
+    }
+}
