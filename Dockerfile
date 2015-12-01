@@ -19,3 +19,4 @@ RUN apt-get update -q -q && \
 COPY ./etc /etc
 COPY ./config /var/www/owncloud/config
 COPY ./config /etc/service/php/config
+COPY ./apps /var/www/owncloud/apps
