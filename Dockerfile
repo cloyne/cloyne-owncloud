@@ -1,7 +1,7 @@
 FROM cloyne/php
 
 RUN apt-get update -q -q && \
- apt-get install wget ca-certificates software-properties-common --yes --force-yes && \
+ apt-get install adduser wget ca-certificates software-properties-common --yes --force-yes && \
  wget --no-verbose https://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/Release.key -O Release.key && \
  apt-key add - < Release.key && \
  rm -f Release.key && \
@@ -14,7 +14,8 @@ RUN apt-get update -q -q && \
  apt-get install owncloud --no-install-recommends --yes --force-yes && \
  apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5-gmp php5-imagick libav-tools php5-json --yes --force-yes && \
  chown -Rh root:root /var/www/owncloud && \
- mkdir -p /owncloud-data
+ mkdir -p /owncloud-data && \
+ adduser www-data fcgi-php
 
 COPY ./etc /etc
 COPY ./config /var/www/owncloud/config
