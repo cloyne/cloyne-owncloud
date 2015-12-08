@@ -20,7 +20,6 @@ RUN apt-get update -q -q && \
  apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5-gmp php5-imagick libav-tools php5-json --yes --force-yes && \
  chown -Rh root:root /var/www/owncloud && \
  mkdir -p /owncloud-data && \
- adduser www-data fcgi-php && \
  adduser fcgi-php redis
 
 COPY ./etc /etc
