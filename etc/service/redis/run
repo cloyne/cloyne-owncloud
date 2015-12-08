@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+mkdir -p /var/run/redis
+chown -Rh redis:redis /var/run/redis
+
+chown -Rh redis:redis /var/lib/redis
+
+# "fcgi-php" user is added to the group "redis" so the socket can be 660.
+exec chpst -u redis:redis /usr/bin/redis-server --port 0 --daemonize no --unixsocket /var/run/redis/redis.sock --unixsocketperm 660 --logfile '' 2>&1

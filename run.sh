@@ -13,10 +13,14 @@ DATA_ROOT='/srv'
 OWNCLOUD_CONFIG="${DATA_ROOT}/${NAME}/config"
 OWNCLOUD_DATA="${DATA_ROOT}/${NAME}/data"
 OWNCLOUD_LOG="${DATA_ROOT}/${NAME}/log"
+REDIS_DATA="${DATA_ROOT}/${NAME}/redis/data"
+REDIS_LOG="${DATA_ROOT}/${NAME}/redis/log"
 
 mkdir -p "${OWNCLOUD_CONFIG}"
 mkdir -p "${OWNCLOUD_DATA}"
 mkdir -p "${OWNCLOUD_LOG}"
+mkdir -p "${REDIS_DATA}"
+mkdir -p "${REDIS_LOG}"
 
 # If you are running the PostgreSQL image for the first time with its data volume, you should configure the
 # database. Exec into the Docker container and run the following example commands to create user "owncloud"
@@ -31,7 +35,11 @@ docker stop "${NAME}" || true
 sleep 1
 docker rm "${NAME}" || true
 sleep 1
-docker run --detach=true --restart=always --name "${NAME}" --hostname "${NAME}" --expose 80 --publish 10.20.32.11:80:80/tcp --env PHP_FCGI_CHILDREN=30 --env ADMINADDR=root@cloyne.org --env REMOTES=mail.cloyne.net --volume "${OWNCLOUD_CONFIG}:/var/www/owncloud/config" --volume "${OWNCLOUD_DATA}:/owncloud-data" --volume "${OWNCLOUD_LOG}:/var/log/nginx" cloyne/owncloud
+docker run --detach=true --restart=always --name "${NAME}" --hostname "${NAME}" --publish 10.20.32.11:80:80/tcp \
+ --env PHP_FCGI_CHILDREN=30 --env ADMINADDR=root@cloyne.org --env REMOTES=mail.cloyne.net \
+ --volume "${OWNCLOUD_CONFIG}:/var/www/owncloud/config" --volume "${OWNCLOUD_DATA}:/owncloud-data" \
+ --volume "${OWNCLOUD_LOG}:/var/log/nginx" --volume "${REDIS_DATA}:/var/lib/redis" --volume "#{REDIS_LOG}:/var/log/redis" \
+ cloyne/owncloud
 
 # When running it for the first time, you have to configure the instance. Open OwnCloud in the browser and
 # choose PostgreSQL database and configure username and password. For data volume, specify "/owncloud-data".
