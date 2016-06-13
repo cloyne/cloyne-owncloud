@@ -1,3 +1,6 @@
 [submodule "apps/music"]
 	path = apps/music
 	url = https://github.com/owncloud/music.git
+[submodule "apps/files_mv"]
+	path = apps/files_mv
+	url = https://github.com/eotryx/oc_files_mv.git
