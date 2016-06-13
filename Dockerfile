@@ -16,9 +16,9 @@ RUN apt-get update -q -q && \
  apt-get install language-pack-en-base --yes --force-yes && \
  LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && \
  apt-get update -q -q && \
- apt-get install php5.6-cgi php5.6-cli redis-server php-redis --yes --force-yes && \
+ apt-get install php5.6-cgi php5.6-cli redis-server php-redis php5.6-pgsql --yes --force-yes && \
  apt-get install owncloud --no-install-recommends --yes --force-yes && \
- apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5-gmp php5-imagick libav-tools php5-json --yes --force-yes && \
+ apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5.6-gmp php-imagick libav-tools php5.6-json php5.6-zip php5.6-xml php5.6-curl php5.6-gd --yes --force-yes && \
  chown -Rh root:root /var/www/owncloud && \
  mkdir -p /owncloud-data && \
  adduser fcgi-php redis
