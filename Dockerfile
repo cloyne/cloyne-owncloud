@@ -21,7 +21,8 @@ RUN apt-get update -q -q && \
  apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5.6-gmp php-imagick libav-tools php5.6-json php5.6-zip php5.6-xml php5.6-curl php5.6-gd --yes --force-yes && \
  chown -Rh root:root /var/www/owncloud && \
  mkdir -p /owncloud-data && \
- adduser fcgi-php redis
+ adduser fcgi-php redis && \
+ rm -f /var/www/owncloud/.user.ini
 
 COPY ./etc /etc
 COPY ./config /var/www/owncloud/config
