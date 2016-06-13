@@ -1,4 +1,4 @@
-To manually scan all the file:
+To manually scan all the files:
 
 ```bash
 docker exec -t -i owncloud /bin/bash
