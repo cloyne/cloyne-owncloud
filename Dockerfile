@@ -10,7 +10,7 @@ RUN apt-get update -q -q && \
  curl https://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/Release.key | apt-key add - && \
  echo 'deb http://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
  apt-get install language-pack-en-base --yes --force-yes && \
- LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && \
+ LC_ALL=en_US.UTF-8 add-apt-repository --yes ppa:ondrej/php && \
  apt-get update -q -q && \
  apt-get install php5.6-cgi php5.6-cli redis-server php-redis php5.6-pgsql --yes --force-yes && \
  apt-get install owncloud --no-install-recommends --yes --force-yes && \
