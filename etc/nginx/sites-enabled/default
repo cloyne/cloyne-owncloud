@@ -61,9 +61,9 @@ server {
         include fastcgi_php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;
-        send_timeout 600s;
-        fastcgi_send_timeout 600s;
-        fastcgi_read_timeout 600s;
+        fastcgi_read_timeout 3600s;
+        fastcgi_buffering off;
+        fastcgi_request_buffering off;
     }
 
     location ~ \.(?:css|js)$ {
