@@ -6,13 +6,9 @@ VOLUME /var/log/redis
 VOLUME /var/lib/redis
 
 RUN apt-get update -q -q && \
- apt-get install adduser wget ca-certificates software-properties-common --yes --force-yes && \
- wget --no-verbose https://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/Release.key -O Release.key && \
- apt-key add - < Release.key && \
- rm -f Release.key && \
+ apt-get install adduser ca-certificates software-properties-common --yes --force-yes && \
+ curl https://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/Release.key | apt-key add - && \
  echo 'deb http://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
- apt-get purge wget --yes --force-yes && \
- apt-get autoremove --yes --force-yes && \
  apt-get install language-pack-en-base --yes --force-yes && \
  LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && \
  apt-get update -q -q && \
