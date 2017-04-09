@@ -1,4 +1,4 @@
-FROM cloyne/php
+FROM tozd/php:5.5
 
 VOLUME /var/www/owncloud/config
 VOLUME /owncloud-data
