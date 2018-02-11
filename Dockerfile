@@ -6,7 +6,7 @@ VOLUME /var/log/redis
 VOLUME /var/lib/redis
 
 RUN apt-get update -q -q && \
- apt-get install ca-certificates curl redis-server php-redis --yes --force-yes && \
+ apt-get install ca-certificates curl redis-server php-redis apt-transport-https --yes --force-yes && \
  curl https://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/Release.key | apt-key add - && \
  echo 'deb http://download.owncloud.org/download/repositories/stable/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
  apt-get update -q -q && \
