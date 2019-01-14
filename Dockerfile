@@ -8,8 +8,8 @@ VOLUME /var/lib/redis
 RUN apt-get update -q -q && \
  apt-get install apt-transport-https ca-certificates curl --yes --force-yes && \
  apt-get install redis-server php-redis --yes --force-yes && \
- curl https://attic.owncloud.com/org/download/repositories/9.1.4/Ubuntu_14.04/Release.key | apt-key add - && \
- echo 'deb http://attic.owncloud.com/org/download/repositories/9.1.4/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
+ curl https://download.owncloud.org/download/repositories/9.1/Ubuntu_14.04/Release.key | apt-key add - && \
+ echo 'deb http://download.owncloud.org/download/repositories/9.1/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
  apt-get update -q -q && \
  apt-get install owncloud --no-install-recommends --yes --force-yes && \
  apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5.6-gmp php-imagick libav-tools php5.6-json php5.6-zip php5.6-xml php5.6-curl php5.6-gd php5.6-mbstring --yes --force-yes && \
