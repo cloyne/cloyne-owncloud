@@ -1,4 +1,4 @@
-FROM tozd/php:5.6
+FROM tozd/php:7.0
 
 VOLUME /var/www/owncloud/config
 VOLUME /owncloud-data
@@ -8,12 +8,12 @@ VOLUME /var/lib/redis
 RUN apt-get update -q -q && \
  apt-get install apt-transport-https ca-certificates curl --yes --force-yes && \
  apt-get install redis-server php-redis --yes --force-yes && \
- curl https://download.owncloud.org/download/repositories/9.1/Ubuntu_14.04/Release.key | apt-key add - && \
- echo 'deb http://download.owncloud.org/download/repositories/9.1/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
+ curl https://download.owncloud.org/download/repositories/9.1/Ubuntu_16.04/Release.key | apt-key add - && \
+ echo 'deb http://download.owncloud.org/download/repositories/9.1/Ubuntu_16.04/ /' >> /etc/apt/sources.list.d/owncloud.list && \
  apt-get update -q -q && \
  apt-get install owncloud --no-install-recommends --yes --force-yes && \
- apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php5.6-gmp php-imagick libav-tools php5.6-json php5.6-zip php5.6-xml php5.6-curl php5.6-gd php5.6-mbstring --yes --force-yes && \
- for file in /etc/php/5.6/mods-available/*.ini; do phpenmod $(basename -s .ini "$file"); done && \
+ apt-get install libipc-sharedcache-perl libmcrypt-dev mcrypt libterm-readkey-perl libreoffice-writer curl php-net-ftp php7.0-gmp php-imagick libav-tools php7.0-json php7.0-zip php7.0-xml php7.0-curl php7.0-gd php7.0-mbstring --yes --force-yes && \
+ for file in /etc/php/7.0/mods-available/*.ini; do phpenmod $(basename -s .ini "$file"); done && \
  chown -Rh root:root /var/www/owncloud && \
  mkdir -p /owncloud-data && \
  adduser fcgi-php redis && \
